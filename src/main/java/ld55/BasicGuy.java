@@ -8,7 +8,7 @@ import java.awt.*;
 public class BasicGuy extends Guy {
 
     public BasicGuy() {
-        super(0.1, 0.1, 0.0, 0.1, 100, 20, createWalkingAppearance(), createAttackingAppearance(), true);
+        super(0.1, 0.1, 0.0, 0.1, 100, 20, 0.1, 2.0, createWalkingAppearance(), createAttackingAppearance(), true);
     }
 
     private static AAppearance createWalkingAppearance() {

@@ -3,7 +3,6 @@ package ld55;
 import ludumEngine2D.*;
 
 import java.util.Random;
-import java.util.Timer;
 import java.util.function.Consumer;
 
 public class ArrowManager {

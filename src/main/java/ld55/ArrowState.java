@@ -91,8 +91,23 @@ public class ArrowState extends GameObject implements IHandler {
                     }
 
                     if (matchState == ArrowManager.MatchState.NO_MATCH) {
-                        // TODO: penalize the player, don't summon
-                        System.out.println("PLAYER PENALIZED");
+                        boolean allCooldowns = true;
+                        for (int m = 0; m < arrowManagers.length; m++) {
+                            if (arrowManagers[m].currCooldownTimer <= 0.0) {
+                                allCooldowns = false;
+                            }
+                        }
+
+                        if (!allCooldowns) {
+                            if (Debug.isEnabled()) {
+                                System.out.println("PLAYER PENALIZED");
+                            }
+
+                            for (int m = 0; m < arrowManagers.length; m++) {
+                                arrowManagers[m].currCooldownTimer = arrowManagers[m].cooldownTimer;
+                                arrowManagers[m].applyState(this);
+                            }
+                        }
                     }
                 }
             }

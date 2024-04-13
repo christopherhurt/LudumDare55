@@ -8,7 +8,7 @@ import java.awt.*;
 public class BasicBaddie extends Guy {
 
     public BasicBaddie() {
-        super(0.1, 0.1, -0.75, 0.1, 100, 20, createWalkingAppearance(), createAttackingAppearance(), false);
+        super(0.1, 0.1, -0.075, 0.1, 100, 20, 0.1, 2.0, createWalkingAppearance(), createAttackingAppearance(), false);
     }
 
     private static AAppearance createWalkingAppearance() {
