@@ -16,9 +16,16 @@ public class Main {
         ACamera camera = new FreeCamera();
         Scene myScene = new Scene(camera, Color.LIGHT_GRAY);
 
+        myScene.add(new SummonPoint());
+
+        myScene.add(new Base(false));
+        myScene.add(new Base(true));
+
         BasicSummoner basicSummoner = new BasicSummoner(myScene);
         TankSummoner tankSummoner = new TankSummoner(myScene);
         OpSummoner opSummoner = new OpSummoner(myScene);
+
+        myScene.add(new BaddieSpawner());
 
         int maxChain = Math.max(Math.max(basicSummoner.arrows.arrows.length, tankSummoner.arrows.arrows.length), opSummoner.arrows.arrows.length);
         ArrowManager[] arrowManagers = { basicSummoner.arrows, tankSummoner.arrows, opSummoner.arrows };

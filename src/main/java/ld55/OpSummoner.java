@@ -1,9 +1,6 @@
 package ld55;
 
-import ludumEngine2D.AAppearance;
-import ludumEngine2D.ColorAppearance;
-import ludumEngine2D.Debug;
-import ludumEngine2D.Scene;
+import ludumEngine2D.*;
 
 import java.awt.*;
 import java.util.function.Consumer;
@@ -12,8 +9,10 @@ public class OpSummoner extends CharacterSummoner {
 
     private static final AAppearance ICON = new ColorAppearance(Color.BLUE);
     private static final Consumer<Scene> SPAWNER = scene -> {
-        // TODO: spawn the op guy
         if (Debug.isEnabled()) System.out.println("SUMMONING OP");
+
+        SummonPoint summonPoint = (SummonPoint)Game.getCurrentScene().getObjectsWithTag(SummonPoint.TAG).get(0);
+        summonPoint.addGuy(OpSummoner.class);
     };
 
     public OpSummoner(Scene scene) {
