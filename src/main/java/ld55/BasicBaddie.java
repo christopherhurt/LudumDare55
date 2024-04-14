@@ -7,7 +7,7 @@ public class BasicBaddie extends Guy {
     private static final SpriteSheet BADDIE_SS = new SpriteSheet("snail.png", 16, 8);
 
     public BasicBaddie() {
-        super(0.1, 0.1, 0.15, 0.1, 100, 20, 0.1, 2.0, createWalkingAppearance(), createAttackingAppearance(), createSpawnAppearance(), false);
+        super(0.1, 0.1, 0.15, 0.1, 125, 32, 0.1, 2.5, createWalkingAppearance(), createAttackingAppearance(), createSpawnAppearance(), false);
     }
 
     private static AAppearance createWalkingAppearance() {

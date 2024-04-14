@@ -15,7 +15,7 @@ public class BasicSummoner extends CharacterSummoner {
     };
 
     public BasicSummoner(Scene scene) {
-        super(scene, ICON, 4, SPAWNER, 0, 3.0);
+        super(scene, ICON, 8, SPAWNER, 0, 3.0);
     }
 
 }

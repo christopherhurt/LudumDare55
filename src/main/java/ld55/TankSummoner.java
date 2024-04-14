@@ -16,7 +16,7 @@ public class TankSummoner extends CharacterSummoner {
     };
 
     public TankSummoner(Scene scene) {
-        super(scene, ICON, 5, SPAWNER, 1, 6.0);
+        super(scene, ICON, 12, SPAWNER, 1, 6.0);
     }
 
 }

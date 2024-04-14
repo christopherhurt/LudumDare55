@@ -7,7 +7,7 @@ import ludumEngine2D.TextureAppearance;
 public class BasicGuy extends Guy {
 
     public BasicGuy() {
-        super(0.1, 0.1, -0.005, 0.1, 100, 20, 0.1, 2.0, createWalkingAppearance(), createAttackingAppearance(), createSpawnAppearance(), true);
+        super(0.1, 0.1, -0.005, 0.1, 100, 25, 0.1, 2.5, createWalkingAppearance(), createAttackingAppearance(), createSpawnAppearance(), true);
     }
 
     private static AAppearance createWalkingAppearance() {

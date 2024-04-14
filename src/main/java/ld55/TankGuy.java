@@ -7,7 +7,7 @@ import ludumEngine2D.TextureAppearance;
 public class TankGuy extends Guy {
 
     public TankGuy() {
-        super(0.125, 0.125, 0.0125, 0.2, 200, 10, 0.08, 3.0, createWalkingAppearance(), createAttackingAppearance(), createSpawnAppearance(), true);
+        super(0.125, 0.125, 0.0125, 0.2, 250, 15, 0.08, 2.5, createWalkingAppearance(), createAttackingAppearance(), createSpawnAppearance(), true);
     }
 
     private static AAppearance createWalkingAppearance() {

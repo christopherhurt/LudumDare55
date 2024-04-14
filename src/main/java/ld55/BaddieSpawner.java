@@ -6,8 +6,8 @@ public class BaddieSpawner extends GameObject implements IHandler {
 
     public static final String TAG = "baddie-spawner";
 
-    private static final double MIN_DURATION = 3.0; // TODO 3.0
-    private static final double MAX_DURATION = MIN_DURATION + 3.0;
+    private static final double MIN_DURATION = 4.3; // TODO 3.0
+    private static final double MAX_DURATION = 4.3;
 
     private InterpolatedDouble baddieSpawnTimer;
 

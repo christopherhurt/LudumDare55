@@ -17,7 +17,8 @@ public class Base extends GameObject implements IDamageable {
 
     private static final double WIDTH = 0.28;
     private static final double HEIGHT = WIDTH;
-    private static final double FULL_HEALTH = 500.0;
+    private static final double FULL_GOOD_HEALTH = 1000.0;
+    private static final double FULL_BAD_HEALTH = 2000.0;
 
     private static final double HEALTH_BAR_SPACING = -0.1;
     private static final double HEALTH_BAR_WIDTH = 0.9;
@@ -25,13 +26,14 @@ public class Base extends GameObject implements IDamageable {
 
     private final boolean isGoodBase;
 
-    private double health = FULL_HEALTH;
+    private double health;
 
     private final GameObject healthBarRed;
     private final GameObject healthBarGreen;
 
     public Base(boolean isGoodBase) {
         this.isGoodBase = isGoodBase;
+        health = this.isGoodBase ? FULL_GOOD_HEALTH : FULL_BAD_HEALTH;
 
         attachTag(isGoodBase ? GOOD_BASE_TAG : BAD_BASE_TAG);
 
@@ -87,7 +89,7 @@ public class Base extends GameObject implements IDamageable {
             health = 0.0;
         }
 
-        double percentHealth = health / FULL_HEALTH;
+        double percentHealth = health / (isGoodBase ? FULL_GOOD_HEALTH : FULL_BAD_HEALTH);
         Transform normalTrans = getRelHealthBarTransform();
         Transform greenTrans = getRelHealthBarTransform();
         greenTrans.setScaleX(normalTrans.getScaleX() * percentHealth);

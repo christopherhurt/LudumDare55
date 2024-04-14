@@ -15,7 +15,7 @@ public class OpSummoner extends CharacterSummoner {
     };
 
     public OpSummoner(Scene scene) {
-        super(scene, ICON, 8, SPAWNER, 2, 15.0);
+        super(scene, ICON, 20, SPAWNER, 2, 15.0);
     }
 
 }

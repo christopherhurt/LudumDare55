@@ -50,6 +50,9 @@ public abstract class Guy extends GameObject implements IHandler, IDamageable {
 
         attachHandler(this);
 
+        BoundingBox bb = new BoundingBox(getWidthFactor(), 1.0);
+        attachBoundingBox(bb);
+
         Game.getCurrentScene().add(this);
     }
 

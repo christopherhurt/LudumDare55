@@ -1,0 +1,38 @@
+Num Arrows:
+- Basic: 8
+- Tank: 12
+- Op: 20
+
+Cooldowns:
+- Basic: 3.0
+- Tank: 6.0
+- Op: 15.0
+
+Enemy spawn rate:
+- Max: 4.3
+- Min: 4.3
+
+Our base health: 1,000
+Enemy base health: 2,000
+
+Health:
+- Baddie: 125
+- Basic: 100
+- Tank: 250
+- Op: 150
+
+Damage:
+- Baddie: 32
+- Basic: 25
+- Tank: 15
+- Op: 75
+
+Move Speed:
+- Basic/Baddie: 0.1
+- Tank: 0.08
+- Op: 0.06
+
+Attack Speed:
+- Basic/Baddie: 2.5
+- Tank: 2.5
+- Op: 2.5
