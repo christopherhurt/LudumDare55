@@ -23,12 +23,14 @@ public abstract class Guy extends GameObject implements IHandler, IDamageable {
     private final double moveSpeed;
     private final boolean isGoodGuy;
 
+    private double summonTimer = SummonEffect.DURATION;
+
     private double health;
 
-    public Guy(double width, double height, double xOff, double attackRange, double health, double damage, double moveSpeed, double attackSpeed, AAppearance walkingAppearance, AAppearance attackingAppearance, boolean isGoodGuy) {
+    public Guy(double width, double height, double xOff, double attackRange, double health, double damage, double moveSpeed, double attackSpeed, AAppearance walkingAppearance, AAppearance attackingAppearance, AAppearance spawnAppearance, boolean isGoodGuy) {
         this.walkingAppearance = walkingAppearance;
         this.attackingAppearance = attackingAppearance;
-        this.attackRange = attackRange;
+        this.attackRange = 0.0; // TODO attackRange;
         this.damage = damage;
         this.moveSpeed = moveSpeed;
         this.health = health;
@@ -37,7 +39,7 @@ public abstract class Guy extends GameObject implements IHandler, IDamageable {
         attackSpeedTimer = InterpolationFactory.createInterpolatedDouble("guy attack " + getId(), 0.0, 1.0, attackSpeed);
         attackSpeedTimer.setRunning(false);
 
-        attachAppearance(walkingAppearance);
+        attachAppearance(spawnAppearance);
 
         attachTag(isGoodGuy ? GOODIE_TAG : BADDIE_TAG);
 
@@ -54,28 +56,32 @@ public abstract class Guy extends GameObject implements IHandler, IDamageable {
     @Override
     public void handle(AEvent pEvt, GameObject pSelf) {
         if (pEvt.getType() == EventType.UPDATE) {
-            IDamageable closestTarget = getClosestTarget();
-            boolean attacking = shouldAttack((GameObject)closestTarget);
+            summonTimer -= Time.getDelta();
 
-            if (attacking) {
-                attachAppearance(attackingAppearance);
+            if (summonTimer <= 0.0) {
+                IDamageable closestTarget = getClosestTarget();
+                boolean attacking = shouldAttack((GameObject) closestTarget);
 
-                if (attackSpeedTimer.isFinished()) {
-                    if (closestTarget != null) {
-                        closestTarget.inflictDamage(damage);
+                if (attacking) {
+                    attachAppearance(attackingAppearance);
+
+                    if (attackSpeedTimer.isFinished()) {
+                        if (closestTarget != null) {
+                            closestTarget.inflictDamage(damage);
+                        }
+
+                        attackSpeedTimer.reset();
                     }
 
-                    attackSpeedTimer.reset();
+                    attackSpeedTimer.setRunning(true);
+                } else {
+                    attachAppearance(walkingAppearance);
+                    attackSpeedTimer.setRunning(false);
+
+                    double direction = isGoodGuy ? -1 : 1;
+                    Transform trans = getTransform().get();
+                    trans.setX(trans.getX() + Time.getDelta() * moveSpeed * direction);
                 }
-
-                attackSpeedTimer.setRunning(true);
-            } else {
-                attachAppearance(walkingAppearance);
-                attackSpeedTimer.setRunning(false);
-
-                double direction = isGoodGuy ? -1 : 1;
-                Transform trans = getTransform().get();
-                trans.setX(trans.getX() + Time.getDelta() * moveSpeed * direction);
             }
         }
     }
@@ -113,20 +119,36 @@ public abstract class Guy extends GameObject implements IHandler, IDamageable {
         Transform targetTrans = target.getTransform().get();
         Transform myTrans = getTransform().get();
 
+        final double widthFactor = getWidthFactor();
         double myEdge;
         double targetEdge;
         if (isGoodGuy) {
-            targetEdge = targetTrans.getX() + targetTrans.getScaleX() / 2.0;
-            myEdge = myTrans.getX() - myTrans.getScaleX() / 2.0;
+            targetEdge = targetTrans.getX() + targetTrans.getScaleX() * widthFactor / 2.0;
+            myEdge = myTrans.getX() - myTrans.getScaleX() * widthFactor / 2.0;
         } else {
-            targetEdge = targetTrans.getX() - targetTrans.getScaleX() / 2.0;
-            myEdge = myTrans.getX() + myTrans.getScaleX() / 2.0;
+            targetEdge = targetTrans.getX() - targetTrans.getScaleX() * widthFactor / 2.0;
+            myEdge = myTrans.getX() + myTrans.getScaleX() * widthFactor / 2.0;
         }
 
         double dist = Math.abs(myEdge - targetEdge);
 
         final double places = 10000d;
         return Math.round(dist * places) / places;
+    }
+
+    private double getWidthFactor() {
+        // This is horrible code
+        if (this instanceof BasicGuy) {
+            return 0.6;
+        } else if (this instanceof TankGuy) {
+            return 0.6;
+        } else if (this instanceof OpGuy) {
+            return 0.6;
+        } else if (this instanceof BasicBaddie) {
+            return 0.6;
+        } else {
+            throw new RuntimeException("UNRECOGNIZED GUY: " + this.getClass().getName());
+        }
     }
 
     @Override

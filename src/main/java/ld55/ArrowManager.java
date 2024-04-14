@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 
 public class ArrowManager {
 
+    private static final double DEBUG_COOLDOWN_FACTOR = 1.0; // TODO: set to 1.0
+
     public enum MatchState {
         PARTIAL_MATCH,
         FULL_MATCH,
@@ -41,7 +43,7 @@ public class ArrowManager {
         this.scene = scene;
         this.numArrows = numArrows;
         this.summoner = summoner;
-        this.cooldownTimer = cooldownTimer;
+        this.cooldownTimer = cooldownTimer * DEBUG_COOLDOWN_FACTOR;
         this.currCooldownTimer = cooldown ? this.cooldownTimer : 0.0;
 
         this.arrowVals = new int[this.numArrows];

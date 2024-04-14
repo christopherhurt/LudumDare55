@@ -6,8 +6,8 @@ public class BaddieSpawner extends GameObject implements IHandler {
 
     public static final String TAG = "baddie-spawner";
 
-    private static final double MIN_DURATION = 3.0;
-    private static final double MAX_DURATION = 6.0;
+    private static final double MIN_DURATION = 3.0; // TODO 3.0
+    private static final double MAX_DURATION = MIN_DURATION + 3.0;
 
     private InterpolatedDouble baddieSpawnTimer;
 
@@ -31,7 +31,7 @@ public class BaddieSpawner extends GameObject implements IHandler {
                 }
 
                 Guy guy = new BasicBaddie();
-                SummonPoint.addSummonEffect(guy, -0.02);
+                SummonPoint.addSummonEffect(guy, 0.0);
             }
 
             baddieSpawnTimer.setRunning(true);

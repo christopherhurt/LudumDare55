@@ -4,7 +4,7 @@ import ludumEngine2D.*;
 
 public class SummonEffect extends GameObject implements IHandler {
 
-    private static final double DURATION = 1.0;
+    public static final double DURATION = 1.0;
     private static final SpriteSheet SUMMON_SS = new SpriteSheet("summoning.png", 8, 8);
 
     private final InterpolatedDouble lifetime;

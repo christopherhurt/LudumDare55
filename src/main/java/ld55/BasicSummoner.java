@@ -2,12 +2,11 @@ package ld55;
 
 import ludumEngine2D.*;
 
-import java.awt.*;
 import java.util.function.Consumer;
 
 public class BasicSummoner extends CharacterSummoner {
 
-    private static final AAppearance ICON = new ColorAppearance(Color.GREEN);
+    private static final AAppearance ICON = new TextureAppearance(new Texture("basicguyicon.png"));
     private static final Consumer<Scene> SPAWNER = scene -> {
         if (Debug.isEnabled()) System.out.println("SUMMONING BASIC");
 

@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Base extends GameObject implements IDamageable {
 
-    private static final boolean ENABLE_GAME_OVER = true;
+    private static final boolean ENABLE_GAME_OVER = false; // TODO
     private static final SpriteSheet BASES_SS = new SpriteSheet("bases.png", 8, 8);
 
     public static final String BAD_BASE_TAG = "bad-base";
@@ -15,13 +15,13 @@ public class Base extends GameObject implements IDamageable {
     public static final double X_POS_CENTER = 0.6;
     public static final double Y_POS_GROUND = 0.32;
 
-    private static final double WIDTH = 0.17;
+    private static final double WIDTH = 0.28;
     private static final double HEIGHT = WIDTH;
     private static final double FULL_HEALTH = 500.0;
 
-    private static final double HEALTH_BAR_SPACING = 0.05;
-    private static final double HEALTH_BAR_WIDTH = 1.1;
-    private static final double HEALTH_BAR_HEIGHT = HEALTH_BAR_WIDTH * 0.15;
+    private static final double HEALTH_BAR_SPACING = -0.1;
+    private static final double HEALTH_BAR_WIDTH = 0.9;
+    private static final double HEALTH_BAR_HEIGHT = HEALTH_BAR_WIDTH * 0.12;
 
     private final boolean isGoodBase;
 
@@ -106,9 +106,11 @@ public class Base extends GameObject implements IDamageable {
     }
 
     private void gameOver(boolean isWin) {
-        Scene gameOverScene = new Scene(new FreeCamera(), Color.BLACK);
-        gameOverScene.add(new GameOverCard(isWin));
-        Game.setCurrentScene(gameOverScene);
+        if (ENABLE_GAME_OVER) {
+            Scene gameOverScene = new Scene(new FreeCamera(), Color.BLACK);
+            gameOverScene.add(new GameOverCard(isWin));
+            Game.setCurrentScene(gameOverScene);
+        }
     }
 
 }

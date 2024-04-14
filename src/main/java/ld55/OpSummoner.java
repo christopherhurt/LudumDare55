@@ -2,12 +2,11 @@ package ld55;
 
 import ludumEngine2D.*;
 
-import java.awt.*;
 import java.util.function.Consumer;
 
 public class OpSummoner extends CharacterSummoner {
 
-    private static final AAppearance ICON = new ColorAppearance(Color.BLUE);
+    private static final AAppearance ICON = new TextureAppearance(new Texture("opguyicon.png"));
     private static final Consumer<Scene> SPAWNER = scene -> {
         if (Debug.isEnabled()) System.out.println("SUMMONING OP");
 

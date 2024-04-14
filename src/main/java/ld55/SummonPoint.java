@@ -20,10 +20,10 @@ public class SummonPoint extends GameObject {
             xOff = 0.02;
         } else if (summ.equals(TankSummoner.class)) {
             guy = new TankGuy();
-            xOff = 0.02;
+            xOff = 0.0;
         } else if (summ.equals(OpSummoner.class)) {
             guy = new OpGuy();
-            xOff = 0.05;
+            xOff = 0.1;
         } else {
             throw new RuntimeException("ADD ANOTHER SUMMONER OPTION " + summ.getName());
         }
@@ -32,8 +32,9 @@ public class SummonPoint extends GameObject {
     }
 
     public static void addSummonEffect(Guy guy, double xOff) {
+        double widthFactor = guy instanceof OpGuy ? 0.5 : 1.0;
         Transform guyTrans = guy.getTransform().get();
-        new SummonEffect(guyTrans.getX() + xOff, guyTrans.getY(), guyTrans.getScaleX(), guyTrans.getScaleY());
+        new SummonEffect(guyTrans.getX() + xOff, guyTrans.getY(), guyTrans.getScaleX() * widthFactor, guyTrans.getScaleY());
     }
 
 }
