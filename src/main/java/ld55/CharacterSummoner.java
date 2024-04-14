@@ -2,7 +2,6 @@ package ld55;
 
 import ludumEngine2D.*;
 
-import java.awt.*;
 import java.util.function.Consumer;
 
 public abstract class CharacterSummoner extends GameObject implements IHandler {
@@ -12,7 +11,7 @@ public abstract class CharacterSummoner extends GameObject implements IHandler {
     private static double X_POS = Main.ASPECT_RATIO / 2.0;
     private static double Y_POS_BASE = -0.5 + SPACING + IMAGE_SIZE / 2.0;
     private static final boolean START_ON_COOLDOWN = false;
-    private static final AAppearance COOLDOWN_OVERLAY_APPEARANCE = new ColorAppearance(Color.DARK_GRAY);
+    private static final AAppearance COOLDOWN_OVERLAY_APPEARANCE = new TextureAppearance(new Texture("gray_cube.png"));
 
     public final ArrowManager arrows;
     private final GameObject cooldownOverlay = new GameObject();

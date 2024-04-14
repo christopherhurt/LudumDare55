@@ -2,15 +2,13 @@ package ld55;
 
 import ludumEngine2D.*;
 
-import java.awt.*;
-
 public class GameOverCard extends GameObject implements IHandler {
 
-    private static final double WIDTH = 0.7;
-    private static final double HEIGHT = 0.4;
+    private static final double WIDTH = 0.8;
+    private static final double HEIGHT = WIDTH / 2.0;
 
-    private static final AAppearance WIN_APPEARANCE = new ColorAppearance(Color.GREEN);
-    private static final AAppearance LOSE_APPEARANCE = new ColorAppearance(Color.RED);
+    private static final AAppearance WIN_APPEARANCE = new TextureAppearance(new Texture("you_win.png"));
+    private static final AAppearance LOSE_APPEARANCE = new TextureAppearance(new Texture("you_lose.png"));
 
     public GameOverCard(boolean isWin) {
         attachHandler(this);

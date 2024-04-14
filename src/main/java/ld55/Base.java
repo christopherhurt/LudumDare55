@@ -7,15 +7,16 @@ import java.awt.*;
 public class Base extends GameObject implements IDamageable {
 
     private static final boolean ENABLE_GAME_OVER = true;
+    private static final SpriteSheet BASES_SS = new SpriteSheet("bases.png", 8, 8);
 
     public static final String BAD_BASE_TAG = "bad-base";
     public static final String GOOD_BASE_TAG = "good-base";
 
-    public static final double X_POS_CENTER = 0.5;
-    public static final double Y_POS_GROUND = 0.25;
+    public static final double X_POS_CENTER = 0.6;
+    public static final double Y_POS_GROUND = 0.32;
 
-    private static final double WIDTH = 0.1;
-    private static final double HEIGHT = 0.2;
+    private static final double WIDTH = 0.17;
+    private static final double HEIGHT = WIDTH;
     private static final double FULL_HEALTH = 500.0;
 
     private static final double HEALTH_BAR_SPACING = 0.05;
@@ -57,11 +58,11 @@ public class Base extends GameObject implements IDamageable {
     }
 
     private static AAppearance getGoodBaseAppearance() {
-        return new ColorAppearance(Color.PINK);
+        return new TextureAppearance(BASES_SS.getTexture(0, 0, 1, 1));
     }
 
     private static AAppearance getBadBaseAppearance() {
-        return new ColorAppearance(Color.MAGENTA);
+        return new TextureAppearance(BASES_SS.getTexture(0, 1, 1, 1));
     }
 
     @Override
@@ -92,10 +93,20 @@ public class Base extends GameObject implements IDamageable {
         greenTrans.setScaleX(normalTrans.getScaleX() * percentHealth);
         greenTrans.setX(normalTrans.getX() - (normalTrans.getScaleX() - greenTrans.getScaleX()) / 2.0 - 0.01091 * HEALTH_BAR_WIDTH);
         healthBarGreen.attachTransform(greenTrans);
+
+        if (!isGoodBase) {
+            java.util.List<GameObject> spawners = Game.getCurrentScene().getObjectsWithTag(BaddieSpawner.TAG);
+
+            if (!spawners.isEmpty()) {
+                BaddieSpawner spawner = (BaddieSpawner)spawners.get(0);
+
+                spawner.updateCurrDuration(percentHealth);
+            }
+        }
     }
 
     private void gameOver(boolean isWin) {
-        Scene gameOverScene = new Scene(new FreeCamera(), Color.WHITE);
+        Scene gameOverScene = new Scene(new FreeCamera(), Color.BLACK);
         gameOverScene.add(new GameOverCard(isWin));
         Game.setCurrentScene(gameOverScene);
     }

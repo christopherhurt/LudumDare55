@@ -16,6 +16,11 @@ public class Main {
         ACamera camera = new FreeCamera();
         Scene myScene = new Scene(camera, Color.LIGHT_GRAY);
 
+        GameObject background = new GameObject();
+        background.attachAppearance(new TextureAppearance(new Texture("background.png")));
+        background.attachTransform(new Transform(0, 0, (double)WIDTH / HEIGHT, 1));
+        myScene.add(background);
+
         myScene.add(new SummonPoint());
 
         myScene.add(new Base(false));

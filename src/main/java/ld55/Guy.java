@@ -9,6 +9,9 @@ import java.util.List;
 
 public abstract class Guy extends GameObject implements IHandler, IDamageable {
 
+    public static final SpriteSheet MUSHROOM_SS = new SpriteSheet("mushroom.png", 16, 8);
+    public static final double ANIMATION_SPEED = 0.4;
+
     private static final String GOODIE_TAG = "goodie";
     private static final String BADDIE_TAG = "baddie";
 

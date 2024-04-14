@@ -1,9 +1,7 @@
 package ld55;
 
 import ludumEngine2D.AAppearance;
-import ludumEngine2D.ColorAppearance;
-
-import java.awt.*;
+import ludumEngine2D.AnimationAppearance;
 
 public class BasicGuy extends Guy {
 
@@ -12,11 +10,14 @@ public class BasicGuy extends Guy {
     }
 
     private static AAppearance createWalkingAppearance() {
-        return new ColorAppearance(Color.GREEN);
+        return new AnimationAppearance(ANIMATION_SPEED, MUSHROOM_SS.getTexture(0, 4, 1, 1),MUSHROOM_SS.getTexture(1, 4, 1, 1),MUSHROOM_SS.getTexture(2, 4, 1, 1),
+                MUSHROOM_SS.getTexture(3, 4, 1, 1),MUSHROOM_SS.getTexture(4, 4, 1, 1),MUSHROOM_SS.getTexture(5, 4, 1, 1),MUSHROOM_SS.getTexture(6, 4, 1, 1));
     }
 
     private static AAppearance createAttackingAppearance() {
-        return new ColorAppearance(Color.WHITE);
+        return new AnimationAppearance(ANIMATION_SPEED, MUSHROOM_SS.getTexture(0, 0, 1, 1),MUSHROOM_SS.getTexture(1, 0, 1, 1),MUSHROOM_SS.getTexture(2, 0, 1, 1),
+                MUSHROOM_SS.getTexture(3, 0, 1, 1),MUSHROOM_SS.getTexture(4, 0, 1, 1),MUSHROOM_SS.getTexture(5, 0, 1, 1),
+                MUSHROOM_SS.getTexture(6, 0, 1, 1),MUSHROOM_SS.getTexture(7, 0, 1, 1),MUSHROOM_SS.getTexture(8, 0, 1, 1));
     }
 
 }
