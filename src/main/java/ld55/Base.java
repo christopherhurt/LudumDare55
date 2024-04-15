@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Base extends GameObject implements IDamageable {
 
-    private static final boolean ENABLE_GAME_OVER = false; // TODO
+    private static final boolean ENABLE_GAME_OVER = true;
     private static final SpriteSheet BASES_SS = new SpriteSheet("bases.png", 8, 8);
 
     public static final String BAD_BASE_TAG = "bad-base";
@@ -53,6 +53,8 @@ public class Base extends GameObject implements IDamageable {
         healthBarGreen.attachAppearance(new ColorAppearance(Color.GREEN));
         healthBarGreen.attachTransform(getRelHealthBarTransform());
         addChild(healthBarGreen);
+
+        attachBoundingBox(new BoundingBox(1.0, 1.0, 0.0, 0.0));
     }
 
     private Transform getRelHealthBarTransform() {

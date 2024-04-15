@@ -11,7 +11,7 @@ public class Main {
     public static final double ASPECT_RATIO = (double)WIDTH / HEIGHT;
 
     public static void main(String[] args) {
-        Debug.setEnabled(true); // TODO: disable
+        Debug.setEnabled(false); // TODO: disable
 
         ACamera camera = new FreeCamera();
         Scene myScene = new Scene(camera, Color.LIGHT_GRAY);
@@ -37,7 +37,7 @@ public class Main {
         ArrowState arrowState = new ArrowState(maxChain, arrowManagers);
         myScene.add(arrowState);
 
-        Game.start(myScene, WIDTH, HEIGHT, "My Cool Game", null, null);
+        Game.start(myScene, WIDTH, HEIGHT, "Gnomes vs. Snailiens", null, null);
     }
 
 }

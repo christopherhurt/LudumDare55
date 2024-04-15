@@ -2,9 +2,8 @@ package ld55;
 
 import ludumEngine2D.*;
 
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public abstract class Guy extends GameObject implements IHandler, IDamageable {
@@ -50,7 +49,7 @@ public abstract class Guy extends GameObject implements IHandler, IDamageable {
 
         attachHandler(this);
 
-        BoundingBox bb = new BoundingBox(getWidthFactor(), 1.0);
+        BoundingBox bb = new BoundingBox(getWidthFactor(), 1.0, getBBXOff(), 0.0);
         attachBoundingBox(bb);
 
         Game.getCurrentScene().add(this);
@@ -99,19 +98,21 @@ public abstract class Guy extends GameObject implements IHandler, IDamageable {
             allTargets.addAll(Game.getCurrentScene().getObjectsWithTag(GOODIE_TAG));
         }
 
-        Collections.shuffle(allTargets); // Shuffle first to random any equidistant enemies
+        //Collections.shuffle(allTargets); // Shuffle first to random any equidistant enemies
 
-        allTargets.sort(Comparator.comparingDouble(this::getDist));
+        //allTargets.sort(Comparator.comparingDouble(this::getDist));
 
         if (allTargets.isEmpty()) {
             return null; // If game over scene has changed
         } else {
-            return (IDamageable) allTargets.get(0);
+            //return (IDamageable) allTargets.get(0);
+            return (IDamageable)allTargets.stream().filter(this::collidesWith).findFirst().orElse(null);
         }
     }
 
     private boolean shouldAttack(GameObject closestTarget) {
-        return getDist(closestTarget) <= attackRange;
+        //return getDist(closestTarget) <= attackRange;
+        return closestTarget != null;
     }
 
     private double getDist(GameObject target) {
@@ -142,13 +143,28 @@ public abstract class Guy extends GameObject implements IHandler, IDamageable {
     private double getWidthFactor() {
         // This is horrible code
         if (this instanceof BasicGuy) {
-            return 0.6;
+            return 0.8;
         } else if (this instanceof TankGuy) {
-            return 0.6;
+            return 0.8;
         } else if (this instanceof OpGuy) {
-            return 0.6;
+            return 0.45;
         } else if (this instanceof BasicBaddie) {
-            return 0.6;
+            return 0.8;
+        } else {
+            throw new RuntimeException("UNRECOGNIZED GUY: " + this.getClass().getName());
+        }
+    }
+
+    private double getBBXOff() {
+        // This is horrible code
+        if (this instanceof BasicGuy) {
+            return 0.2;
+        } else if (this instanceof TankGuy) {
+            return 0.0;
+        } else if (this instanceof OpGuy) {
+            return 0.0;
+        } else if (this instanceof BasicBaddie) {
+            return 0.0;
         } else {
             throw new RuntimeException("UNRECOGNIZED GUY: " + this.getClass().getName());
         }
@@ -165,6 +181,34 @@ public abstract class Guy extends GameObject implements IHandler, IDamageable {
 
             Game.getCurrentScene().remove(this);
         }
+    }
+
+    private boolean collidesWith(GameObject obj) {
+        Transform thisTrans = getTransform().get();
+        Transform otherTrans = obj.getTransform().get();
+
+        BoundingBox thisBB = getBoundingBox().get();
+        BoundingBox otherBB = obj.getBoundingBox().get();
+
+        double otherRelX = otherBB.getRelativeOffsetX();
+        if (obj instanceof OpGuy) {
+            otherRelX += 0.5;
+        }
+
+        Rectangle thisRect = getRect(thisTrans, thisBB, thisBB.getRelativeOffsetX());
+        Rectangle otherRect = getRect(otherTrans, otherBB, otherRelX);
+
+        return thisRect.intersects(otherRect);
+    }
+
+    private Rectangle getRect(Transform trans, BoundingBox bb, double relOffX) {
+        double x = trans.getX() - bb.getRelativeWidth() / 2.0 * trans.getScaleX() + relOffX * trans.getScaleX();
+        double y = trans.getY();
+        double w = trans.getScaleX() * bb.getRelativeWidth();
+        double h = trans.getScaleY();
+
+        int factor = 100000000;
+        return new Rectangle((int)(factor * x), (int)(factor * y), (int)(factor * w), (int)(factor * h));
     }
 
 }
